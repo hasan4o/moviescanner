@@ -1,0 +1,31 @@
+#search {
+  color: #ffffff;
+  background-color: #007bff;
+  font-size: 1rem;
+}
+
+section.jumbotron {
+  padding-top: 60px!important;
+  padding-bottom: 60px!important;
+}
+
+#movies-searchable{
+  margin-top: 20px;
+}
+
+section.section {
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+section img {
+  width: 250px;
+}
+
+img:hover {
+  /* margin-left: 100px; */
+  transform: scale(1.2);
+  cursor: pointer;
+}

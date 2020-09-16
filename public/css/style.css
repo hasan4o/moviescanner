@@ -22,10 +22,39 @@ section.section {
 
 section img {
   width: 250px;
+/* медленное всплытие */
+  -webkit-transition: transform 0.7s ease-in-out; 
+  -moz-transition:transform 0.7s ease-in-out;
+  -ms-transition:transform 0.7s ease-in-out;
 }
 
 img:hover {
   /* margin-left: 100px; */
   transform: scale(1.2);
   cursor: pointer;
+}
+
+.content {
+  border: 1px solid red;
+  display: none;
+}
+
+.content div {
+display: flex;
+justify-content: space-around;
+flex-wrap: wrap;
+align-items: center;
+margin: 10px;
+}
+
+
+.content-display {
+  display: block;
+}
+
+
+
+/* to disable some bootstrap css */
+div.content.content-display {
+  text-align: left!important;
 }

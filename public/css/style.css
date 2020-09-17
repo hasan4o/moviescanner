@@ -11,6 +11,16 @@ nav {
   padding: 4px;
   border-radius: 20px;
   opacity: 0.8;
+
+  font-family: Robotron; 
+}
+
+h1 {
+  font-family: Robotron; 
+}
+
+span.osen {
+  color: rgb(247, 161, 3)
 }
 
 #search {
@@ -137,6 +147,6 @@ text-align: left;
 
 /* добавление красивых шрифтов*/
 @font-face {
-  font-family: Goose; 
-  src: url(fonts/19319.ttf);
+  font-family: Robotron; 
+  src: url(../fonts/19876.otf);
 }

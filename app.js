@@ -27,7 +27,7 @@ app.use(morgan("dev"));
 app.use('/', indexRouter);
 app.use('/themoviedb', theMovieDbRouter);
 
-const port = process.env.PORT ?? 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log('Сервер запущен. Порт:', port);
 });

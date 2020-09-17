@@ -1,3 +1,18 @@
+nav {
+  border-radius: 20px;
+  background-color: #fc8320!important;
+  background-image: url('../img/nav.png');
+  background-size: contain;
+}
+
+.navbar-brand {
+  color: black!important;
+  background-color: blanchedalmond;
+  padding: 4px;
+  border-radius: 20px;
+  opacity: 0.8;
+}
+
 #search {
   color: #ffffff;
   background-color: #007bff;
@@ -5,8 +20,11 @@
 }
 
 section.jumbotron {
-  padding-top: 60px!important;
-  padding-bottom: 60px!important;
+  background-color: #f3a85b2b;
+  padding-top: 30px!important;
+  padding-bottom: 30px!important;
+  border-radius: 20px;
+  margin-top: 15px;
 }
 
 #movies-searchable{
@@ -22,6 +40,8 @@ section.section {
 
 section img {
   width: 250px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
 /* медленное всплытие */
   -webkit-transition: transform 0.7s ease-in-out; 
   -moz-transition:transform 0.7s ease-in-out;
@@ -35,11 +55,35 @@ img:hover {
 }
 
 .content {
-  border: 1px solid red;
+  margin-top: 30px;
+  border: 1px solid lightgray;
+  padding: 20px;
   display: none;
+  border-radius: 20px;
 }
 
-.content div {
+#content-close {
+  cursor: pointer;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  font-weight: bold;
+
+  border-radius: 10px;
+  background-color:orange;
+  border-color: rgb(235, 152, 0);
+}
+
+#content-close:hover {
+  cursor: pointer;
+
+  border: 1px solid;
+
+  background-color: #fc8320;
+  border-color: #fc8320;
+}
+
+.content div#trailers {
 display: flex;
 justify-content: space-around;
 flex-wrap: wrap;
@@ -47,14 +91,52 @@ align-items: center;
 margin: 10px;
 }
 
+iframe {
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+
+}
 
 .content-display {
   display: block;
 }
 
+.btn {
+  /* color: #fff; */
+  border-radius: 15px;
+  font-weight: bold;
+  background-color:orange;
+  border-color: rgb(235, 152, 0);
+}
 
+.btn:hover {
+  /* color: #fff; */
+  background-color: #fc8320!important;
+  border-color: #fc8320;
+
+}
 
 /* to disable some bootstrap css */
 div.content.content-display {
   text-align: left!important;
+}
+
+
+
+#search_input {
+  border-radius: 15px;
+}
+
+
+#filminfo p {
+text-align: left;
+}
+#filminfo h3 {
+  text-align: center;
+  }
+
+/* добавление красивых шрифтов*/
+@font-face {
+  font-family: Goose; 
+  src: url(fonts/19319.ttf);
 }

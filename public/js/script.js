@@ -1,7 +1,10 @@
-const searchButton = document.forms.form_search.butt;
+const searchButton = document.forms.form_search.search;
+const deleteButton = document.forms.form_search.delete;
+
 const searchInput = document.forms.form_search.inp;
 
 const moviesSearchable = document.querySelector('#movies-searchable');
+const moviesContainer = document.querySelector('#movies-container');
 
 // const API_KEY = '202dcfe5c06c5d78584f15e418e19bbc';
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
@@ -47,19 +50,42 @@ async function buttClickCB(event) {
     const movieBlock = createMovieContainer(movies);
     moviesSearchable.appendChild(movieBlock);
 
-    searchInput.value = ''; // очищаем поле input для нового поиска
+    // searchInput.value = ''; // очищаем поле input для нового поиска
   } catch (err) {
     console.log('Error:', err);
   }
 }
 
+async function requestMovies(type) {
+  try {
+    const body = {
+      type,
+    };
 
-function createMovieContainer(movies) {
+    const response = await fetch('/themoviedb/films', { //'/themoviedb/poster'
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    const movies = await response.json();
+    //const movies = data.results;
+    console.log(movies);
+
+    const movieBlock = createMovieContainer(movies, this.title);
+    moviesContainer.appendChild(movieBlock);
+  } catch (err) {
+    console.log('Error:', err);
+  }
+}
+
+function createMovieContainer(movies, title = '') {
   const movieElement = document.createElement('div');
   movieElement.setAttribute('class', 'movie');
 
-  // const header = document.createElement('h2');
-  // header.innerHTML = title;
+  const header = document.createElement('h2');
+  header.innerHTML = title;
 
   const content = document.createElement('div');
   content.classList = 'content'; // пока что невидимый блок div ("style.css" .content)
@@ -68,10 +94,12 @@ function createMovieContainer(movies) {
   content.innerHTML = contentClose;
 
   const section = movieSection(movies);
+  const hr = document.createElement('hr');
 
-  // movieElement.appendChild(header);
+  movieElement.appendChild(header);
   movieElement.appendChild(section);
   movieElement.appendChild(content);
+  movieElement.appendChild(hr);
 
   return movieElement;
 }
@@ -111,18 +139,22 @@ function createIframe(video) {
 
 
 
-function createVideoTemplate(videos, content, title, overview, vote_average) {
+function createVideoTemplate(videos, content, title, overview, vote_average, id, release_date) {
   content.innerHTML = '<p id="content-close">закрыть</p>'; // очищаем поле, оставляя только кнопку ЗАКРЫТЬ
 
   const filmInfo = document.createElement('div');
   filmInfo.id = 'filminfo';
 
   const filmTitle = document.createElement('h3');
+  filmTitle.id = 'title'
   filmTitle.innerHTML = title;
   const filmOverview = document.createElement('p');
   filmOverview.innerHTML = overview;
   const filmRate = document.createElement('p');
-  filmRate.innerHTML = 'Рейтинг сайта themoviedb.org: ' + vote_average;
+  filmRate.innerHTML = `Рейтинг: ${vote_average} 
+  <p>Смотреть на <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/movie/${id}?language=ru-RU">themoviedb.org</a></p>
+  <p>Дата выхода: ${release_date}</p>
+  `;
 
   filmInfo.appendChild(filmTitle);
   filmInfo.appendChild(filmOverview);
@@ -131,14 +163,18 @@ function createVideoTemplate(videos, content, title, overview, vote_average) {
 
   const length = videos.length > 4 ? 4 : videos.length;
   const iframeContainer = document.createElement('div');
-  iframeContainer.id = 'trailers'
 
-  for (let i = 0; i < length; i++) {
-    const video = videos[i]; // 1video
-    const iframe = createIframe(video);
-    iframeContainer.appendChild(iframe);
-    content.appendChild(iframeContainer);
+  if (length) {
+    for (let i = 0; i < length; i++) {
+      const video = videos[i]; // 1video
+      const iframe = createIframe(video);
+      iframeContainer.appendChild(iframe);
+      return content.appendChild(iframeContainer);
+    }
   }
+  console.log('AAAAA');
+  iframeContainer.innerHTML = `<p id="notfound">Сорри, не нашел трейлеры. Попробуй другой фильм.</p>`
+  content.appendChild(iframeContainer);
 }
 
 // Event delegation
@@ -170,12 +206,18 @@ document.addEventListener('click', async (event) => {
         },
         body: JSON.stringify(body),
       });
-      const { videos, title, overview, vote_average } = await response.json();
+      const {
+        videos,
+        title,
+        overview,
+        vote_average,
+        id,
+        release_date
+      } = await response.json();
       // console.log(videos);
       /////////
 
-      createVideoTemplate(videos, content, title, overview, vote_average)
-
+      createVideoTemplate(videos, content, title, overview, vote_average, id, release_date)
     } catch (err) {
       console.log('Error:', err);
     }
@@ -186,3 +228,25 @@ document.addEventListener('click', async (event) => {
     content.classList.remove('content-display');
   }
 });
+
+getUpcomingMovies();
+getTopRatedMovies();
+getPopularMovies();
+
+async function getUpcomingMovies() {
+  const type = '/movie/upcoming';
+  const ownrequestMovies = requestMovies.bind({ title: 'Самые ожидаемые фильмы' }); // bind заголовка
+  await ownrequestMovies(type);
+}
+
+async function getTopRatedMovies() {
+  const type = '/movie/top_rated';
+  const ownrequestMovies = requestMovies.bind({ title: 'Высокий рейтинг' });
+  await ownrequestMovies(type);
+}
+
+async function getPopularMovies() {
+  const type = '/movie/popular';
+  const ownrequestMovies = requestMovies.bind({ title: 'Популярные' });
+  await ownrequestMovies(type);
+}

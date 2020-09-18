@@ -7,13 +7,11 @@ const router = express.Router();
 // ПОСТЕРЫ ПО ПОИСКУ
 router.post('/poster', async (req, res) => {
   const { value, path } = req.body;
-  // console.log(req.body);
 
   const url = new URL(`https://api.themoviedb.org/3${path}?api_key=${process.env.API_KEY}&query=${value}&language=ru`);
   const themoviedb = await fetch(url);
   const datafromDb = await themoviedb.json();
   const movies = datafromDb.results;
-  //console.log(movies);
 
   return res.json(movies)
 });
@@ -37,6 +35,7 @@ router.post('/trailer', async (req, res) => {
   return res.json({ videos, title, overview, vote_average, id, release_date })
 });
 
+// ФИЛЬМЫ ПОПУЛЯРНЫЕ, ОЖИДАЕМЫЕ...
 router.post('/films', async (req, res) => {
   const { type } = req.body;
   if (type === '/movie/upcoming') {

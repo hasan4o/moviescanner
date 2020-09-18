@@ -23,7 +23,6 @@ searchButton.addEventListener('click', buttClickCB);
 async function buttClickCB(event) {
   event.preventDefault();
   const { value } = searchInput;
-  console.log(value);
   const path = '/search/movie';
   // const newUrl = generateUrl(path) + '&query=' + value
 
@@ -43,8 +42,6 @@ async function buttClickCB(event) {
       body: JSON.stringify(body),
     });
     const movies = await response.json();
-    //const movies = data.results;
-    console.log(movies);
 
 
     const movieBlock = createMovieContainer(movies);
@@ -70,8 +67,6 @@ async function requestMovies(type) {
       body: JSON.stringify(body),
     });
     const movies = await response.json();
-    //const movies = data.results;
-    console.log(movies);
 
     const movieBlock = createMovieContainer(movies, this.title);
     moviesContainer.appendChild(movieBlock);
@@ -172,7 +167,6 @@ function createVideoTemplate(videos, content, title, overview, vote_average, id,
       return content.appendChild(iframeContainer);
     }
   }
-  console.log('AAAAA');
   iframeContainer.innerHTML = `<p id="notfound">Сорри, не нашел трейлеры. Попробуй другой фильм.</p>`
   content.appendChild(iframeContainer);
 }
@@ -183,7 +177,6 @@ document.addEventListener('click', async (event) => {
 
   if (target.tagName.toLowerCase() === 'img') {
     const movieId = target.dataset.movieId;
-    console.log(movieId);
     const section = target.parentElement; // section
     const content = section.nextElementSibling; // content
     content.classList.add('content-display');
@@ -214,7 +207,6 @@ document.addEventListener('click', async (event) => {
         id,
         release_date
       } = await response.json();
-      // console.log(videos);
       /////////
 
       createVideoTemplate(videos, content, title, overview, vote_average, id, release_date)

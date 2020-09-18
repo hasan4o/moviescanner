@@ -152,7 +152,7 @@ function createVideoTemplate(videos, content, title, overview, vote_average, id,
   filmOverview.innerHTML = overview;
   const filmRate = document.createElement('p');
   filmRate.innerHTML = `Рейтинг: ${vote_average} 
-  <p>Смотреть на <a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/movie/${id}?language=ru-RU">themoviedb.org</a></p>
+  <p><a target="_blank" rel="noopener noreferrer" href="https://www.themoviedb.org/movie/${id}?language=ru-RU">Смотреть на themoviedb.org</a></p>
   <p>Дата выхода: ${release_date}</p>
   `;
 

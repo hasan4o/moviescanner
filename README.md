@@ -4,17 +4,17 @@
 *(link to heroku: https://movie-night11.herokuapp.com/)*  
 
 
-# Getting Started
+## Getting Started
 `npm install`  
 `npm start`  
 
-# MVP Functionality
+## MVP Functionality
 * Поиск любого фильма  
 * Краткое описание фильма  
 * Трейлер фильма  
 * Наличие категорий (Популярные, Высокий рейтинг...)  
   
-# Next Steps
+## Next Steps
 * Сделать адаптивную верстку  
 * Мобильное приложение  
 * Расширить функционал приложения  
